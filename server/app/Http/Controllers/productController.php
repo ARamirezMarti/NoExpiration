@@ -44,9 +44,7 @@ class productController extends Controller
             $product = Product::create($validated);
             
             $AlertCreator->createAlerts($request->expiration_date,$product->id);
-            var_dump($product->id);
 
-            var_dump(auth()->user()->id);
             ProdType::create([
                 'product_id' => $product->id,
                 'user_id' => auth()->user()->id,
@@ -65,7 +63,6 @@ class productController extends Controller
             return response()->json([
                 'status' => 1,
                 'msg' => 'Producto creado',
-                'alertas'=>$product
             ]);
 
            

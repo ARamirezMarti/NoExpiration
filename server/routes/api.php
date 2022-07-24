@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\companyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\inventoryController;
 use App\Http\Controllers\productController;
@@ -21,6 +22,7 @@ Route::group(['middleware'=>['auth:sanctum']],function (){
     Route::get('product/all',[productController::class,'getAllProduct']);    
 
 
+    Route::get('product/companies/all',[companyController::class,'getAllCompanyByUser']);
     
 
 

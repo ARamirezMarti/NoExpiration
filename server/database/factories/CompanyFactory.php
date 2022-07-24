@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,6 +19,8 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
+            'product_id' => Product::first()->id,
+            'user_id' => User::first()->id,
             'name' =>$this->faker->company(), 
             'location' =>$this->faker->city() , 
         ];

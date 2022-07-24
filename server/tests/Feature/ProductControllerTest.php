@@ -34,13 +34,13 @@ class ProductControllerTest extends TestCase
             'name'=> 'Product example',
             'buying_date'=> '2022-05-24',
             'expiration_date'=> '2022-07-24',
-            'product_type' => 'Bimbo',
+            'product_type' => 'Example type',
             'image'=> 'lorem impsun',
         ];
 
         $response = $this->post('product/create',$payload);
 
-        $product= Product::first();
+        $product = Product::where('name',$payload['name'])->first();
 
         $this->assertDatabaseHas('product',[
             'id'=>$product->id
@@ -152,13 +152,12 @@ class ProductControllerTest extends TestCase
         $this->actingAs($user);
         
         $inventory = Inventory::factory()->count(1)->create()->first();
-        var_dump($inventory->id);
         
         Product::factory()->count(50)->create([
             'inventory_id'=>$inventory->id,            
             'name'=> 'Name Example',
             'buying_date'=> '2022-05-30',
-            'expiration_date'=> '2022-07-31',
+            'expiration_date'=> '2022-07-31',            
             'image'=> 'lorem impsun',
         ]);
 
