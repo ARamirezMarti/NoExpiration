@@ -15,7 +15,10 @@ The server part is made with Laravel 9. This part is expected to be deployable w
 Tests have also been carried out on all implemented endpoints.
 
 TODO:
-  - [ ] Create controller for alerts, companies and product type.
+  - [ ] Create controller for:
+        - [ ] Alerts,
+        - [ ] Companies
+        - [ ] Product type.
   - [ ] Dockerize
   - [ ] Test added implementations.
   
