@@ -16,9 +16,11 @@ Tests have also been carried out on all implemented endpoints.
 
 TODO:
   - [ ] Create controller for:
+  
         - [ ] Alerts,
-        - [ ] Companies
+        - [x] Companies
         - [ ] Product type.
+        
   - [ ] Dockerize
   - [ ] Test added implementations.
   
