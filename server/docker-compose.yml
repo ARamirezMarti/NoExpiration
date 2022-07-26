@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        image: 'pruebaaravel'
+        container_name: noexpapi
+        ports:
+            - "3700:8000"
+networks: 
+  default: 
+    external: 
+      name: raspisql_default 

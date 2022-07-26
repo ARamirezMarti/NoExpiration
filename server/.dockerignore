@@ -1,0 +1,7 @@
+./vendor
+./git
+.gitignore
+./test
+phpunit.xml
+README.md
+.env.example
