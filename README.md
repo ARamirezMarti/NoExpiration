@@ -21,7 +21,7 @@ TODO:
         - [x] Companies
         - [ ] Product type.
         
-  - [ ] Dockerize
+  - [x] Dockerize
   - [ ] Test added implementations.
   
 ### Front-end
