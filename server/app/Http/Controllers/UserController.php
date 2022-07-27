@@ -22,7 +22,8 @@ class UserController extends Controller
                 'name.required' => 'Name field is required.',
                 'password.required' => 'Password field is required.',
                 'email.required' => 'Email field is required.',
-                'email.email' => 'Email field must be email address.'
+                'email.email' => 'Email field must be email address.',
+                'password.min'=> 'Password has to be 8 character at least'
             ]);
             $validated['password'] = Hash::make($validated['password']);
 
@@ -30,21 +31,30 @@ class UserController extends Controller
 
         }catch(Exception $e){
             
-            $error_code=$e->errorInfo[1];
-            
-            switch ($error_code) {
-                case '1062':
-                    return response()->json([
-                        'status' => 0,
-                        'msg' => 'Ya existe una cuenta con ese email.',                     
-                                                
-                        'error_code'=>$e->errorInfo[1]
-                    ]);
-                    break;
-                
-                default:
-                    break;
-            }
+           if(isset($e->errorInfo[1])){
+
+               $error_code=$e->errorInfo[1];
+               
+               switch ($error_code) {
+                   case '1062':
+                       return response()->json([
+                           'status' => 0,
+                           'msg' => 'That email is already in use   .',                     
+                                                   
+                           'error_code'=>$e->errorInfo[1]
+                       ]);
+                       break;
+                   
+                   default:
+                       break;
+               } 
+           }else{
+
+               return response()->json([
+                   'status' => 0,
+                   'msg' => $e->getMessage(),
+               ]);
+           }
         }
         return response()->json([
             'status' => 1,
