@@ -27,5 +27,8 @@ TODO:
   
 ### Front-end
 
-The front will be a mobile application made with Ionic. So far this part of the project has not started.
+The front will be a mobile application made with Ionic. 
 
+TODO:
+  - [ ] use .env for  secret keys
+  
