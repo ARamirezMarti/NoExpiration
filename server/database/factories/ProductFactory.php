@@ -25,6 +25,7 @@ class ProductFactory extends Factory
         return [            
             'inventory_id'=>Inventory::first()->id,            
             'name' => $this->faker->name() ,
+            'prod_type_id'=> rand(1,5),
             'buying_date' => now(),
             'expiration_date' => now(),
             'image' => $this->faker->text(150), 
