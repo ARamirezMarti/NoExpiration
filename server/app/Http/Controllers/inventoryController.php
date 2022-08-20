@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Inventory;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,81 +11,83 @@ class inventoryController extends Controller
 {
 
     /* TODO:
-        - Agregar Update
+    - Agregar Update
      */
-    
-     public function getInventory(){
-        $user = Auth()->user();
-        try{
 
-            $inventory = Inventory::where('user_id','=',$user->id)->first();
-         
+    public function getInventory()
+    {
+        $user = Auth()->user();
+        try {
+
+            $inventories = DB::table('inventory')->where('user_id', '=', $user->id)->get();
+
             return response()->json([
                 'status' => 1,
-                'inventario'=>$inventory
+                'inventories' => $inventories,
             ]);
-        }catch(Exception $e){
-            
-            
+        } catch (Exception $e) {
+
             return response()->json([
                 'status' => 0,
-                'msg' => 'No se ha podido recuperar el inventario',                     
-                'error_code'=>$e->errorInfo[1]
+                'msg' => 'This inventory can not be retrieved',
+                'error_code' => $e->errorInfo[1],
             ]);
 
         }
 
-
-    } 
-    public function createInventory(Request $request){
+    }
+    public function createInventory(Request $request)
+    {
         $user = Auth()->user();
-        
-        try{          
+
+        try {   
             Inventory::create([
-                'user_id'=>$user->id,
-                'name'=>$request->name
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'description' => $request->description,
             ]);
-            
+
             return response()->json([
                 'status' => 1,
-                'msg'=>'Done',
+                'msg' => 'Inventory successfully created',
             ]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 0,
-                'msg' => 'No se ha podido recuperar el inventario',                     
-                'error_code'=>$e->errorInfo[1]
+                'msg' => 'Inventory can not be retrieved',
+                'error_code' => $e->getMessage(),
             ]);
         }
-    } 
-    public function deleteInventory(Request $request){
-        $user= auth()->user();
-        try{         
+    }
+    public function deleteInventory(Request $request)
+    {
+        $user = auth()->user();
+        try {
 
             $deleted = DB::table('inventory')
-                ->where('id', '=',$request->id)
-                ->where('user_id', '=',$user->id)
+                ->where('id', '=', $request->id)
+                ->where('user_id', '=', $user->id)
                 ->delete();
 
-            if($deleted){
+            if ($deleted) {
                 return response()->json([
                     'status' => 1,
-                    'msg'=>'Inventario borrado'
+                    'msg' => 'Inventary successfully deleted',
                 ]);
-            }else{
+            } else {
 
                 return response()->json([
                     'status' => 0,
-                    'msg'=>'Este inventario no le pertenece a este usuario',                    
+                    'msg' => 'The inventory can not be deleted',
                 ]);
             }
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json([
                 'status' => 0,
-                'msg' => 'No se ha podido recuperar el inventario',                     
-                'error_code'=>$e->errorInfo[1]
+                'msg' => 'Inventory can not be deleted',
+                'error_code' => $e->errorInfo[1],
             ]);
         }
-    } 
+    }
 }
