@@ -15,11 +15,12 @@ The server part is made with Laravel 9. This part is expected to be deployable w
 Tests have also been carried out on all implemented endpoints.
 
 TODO:
+  - [x] Create description field for Inventories
   - [ ] Create controller for:
   
         - [ ] Alerts,
         - [x] Companies
-        - [ ] Product type.
+        - [x] Product type.
         
   - [x] Dockerize
   - [ ] Test added implementations.
