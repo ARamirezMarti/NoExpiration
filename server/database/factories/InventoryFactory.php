@@ -20,6 +20,7 @@ class InventoryFactory extends Factory
         return [
             'user_id' => User::first()->id,
             'name' => $this->faker->name(),
+            'description' => $this->faker->text(),
         ];
     }
 }

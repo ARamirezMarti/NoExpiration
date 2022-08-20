@@ -13,7 +13,8 @@ class Inventory extends Model
 
     protected $fillable = [
         'user_id',
-        'name'
+        'name',
+        'description'
     ];
     
 
