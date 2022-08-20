@@ -16,12 +16,14 @@ return new class extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('inventory_id');
+            $table->unsignedBigInteger('prod_type_id');
             $table->string('name');            
             $table->date('buying_date');
             $table->date('expiration_date');
-            $table->text('image');
+            $table->text('image')->nullable();
 
             $table->foreign('inventory_id')->references('id')->on('inventory')->onDelete('cascade');
+            $table->foreign('prod_type_id')->references('id')->on('prod_type');
             
 
 
