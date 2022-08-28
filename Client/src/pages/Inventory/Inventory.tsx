@@ -1,4 +1,4 @@
-import {  IonCol, IonContent,useIonToast ,IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar, useIonViewWillEnter, IonLabel } from '@ionic/react';
+import {  IonCol, IonContent,useIonToast ,IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import { useParams } from 'react-router';
 import getToken, { getInventory } from '../../Helpers/functions';
 import { addSharp, arrowBack,trashBinOutline} from "ionicons/icons";
@@ -19,13 +19,14 @@ const Inventory: React.FC = () => {
 
     useIonViewWillEnter(async ()=>{
         let data:any = await inventoryRequest.getProducts(getToken(),toast,getInventory())
-        console.log(data.products)
         setListProducts(data.products);
     })
 
 
 
-
+    const deleteProduct = (id:any) =>{
+        inventoryRequest.deleteProd(getToken,toast,id);
+    }
 
 
   return (
@@ -67,11 +68,11 @@ const Inventory: React.FC = () => {
 
             productList.map((item: any) => {
                 return (
-                    <IonRow class='ion-text-center'>
+                    <IonRow key={item.id} class='ion-text-center'>
                         <IonCol> {item.name}</IonCol>
                         <IonCol> {item.expiration_date}</IonCol>
                         <IonCol> 3</IonCol>
-                        <IonCol> <IonIcon icon={trashBinOutline}></IonIcon></IonCol>
+                        <IonCol> <IonIcon onClick={()=>{deleteProduct(item.id)} } icon={trashBinOutline}></IonIcon></IonCol>
                         
                     </IonRow>
                     
@@ -83,7 +84,7 @@ const Inventory: React.FC = () => {
             }  
 
     </IonGrid>
-    <CreateProductModal/>
+    <CreateProductModal />
     </IonContent>
 
     

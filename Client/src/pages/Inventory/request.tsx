@@ -24,7 +24,29 @@ const inventoryRequest = {
             })
         })
 
-    } 
+    },
+    deleteProd(token:Object,toast:any,id:number){
+        
+        return new Promise ((resolve,reject)=>{
+
+            axios.delete(`http://localhost:3000/api/product/delete?id=${id}`,token)
+                .then((response) => {
+                    if(response.data.status===1){
+                        resolve(response.data)
+                    }
+                
+                }).catch((error)=>{
+                    toast({
+                        cssClass:'my-css',
+                        header:'Attention',
+                        message:error.response.data.msg,
+                        duration:2000,
+                        color:'danger'
+                })
+            })
+        })
+
+    }  
 }
 
 export default inventoryRequest

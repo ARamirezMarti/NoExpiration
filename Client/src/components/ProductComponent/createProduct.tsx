@@ -4,21 +4,30 @@ import axios from 'axios';
 import getToken, { getInventory } from '../../Helpers/functions';
 
 
+
 const CreateProductModal: React.FC = () => {
 
 
   useIonViewWillEnter (()=>{
       getTypes()
+      const d :Date = new Date(Date.now());
+      setDefaultFechaHoy(d.toISOString())
+
+      
+
   })
 
 
   const [types,setTypes] = useState<any>([])
   const [name,setName] = useState<any>('')
   const [type,setType] = useState<any>('')  
+  const [defaultFechaHoy,setDefaultFechaHoy] = useState<any>('')  
+  
   const [buyingDate,setBuying] = useState<any>('')  
   const [expirationDate,setExpiration] = useState<any>('')  
   const modal = useRef<HTMLIonModalElement>(null);
   const [toast] = useIonToast();
+
 
 
 
@@ -45,7 +54,7 @@ const CreateProductModal: React.FC = () => {
   }
 
   const handleCreation = ()=>{
-
+   
     let data = new FormData();
     data.append('inventory_id',getInventory())
     data.append('prod_type_id',type)
@@ -53,7 +62,10 @@ const CreateProductModal: React.FC = () => {
     data.append('buying_date',buyingDate.split('T')[0])
     data.append('expiration_date',expirationDate.split('T')[0])
     data.append('image', '')
-    
+    if (!buyingDate ) {
+      data.append('buying_date',defaultFechaHoy.split('T')[0])
+
+    }
 
     axios.post('http://localhost:3000/api/product/create',data,getToken())
           .then(function (response) {
@@ -70,7 +82,7 @@ const CreateProductModal: React.FC = () => {
                   modal.current?.dismiss()  
                 },1000)
                
-           
+                window.location.reload()
             }else{
                 toast({
                     cssClass:'my-css',
@@ -117,7 +129,6 @@ const CreateProductModal: React.FC = () => {
                           onIonChange={(e) => setType(e.detail.value)}
                         >
                           {
-
                             types.map((item: any) => {
                               return (
                                 <IonSelectOption key={item.id} value={item.id}>{item.type}</IonSelectOption>
@@ -144,7 +155,7 @@ const CreateProductModal: React.FC = () => {
                       <IonDatetimeButton  slot='end' datetime='buying'></IonDatetimeButton>
                     </IonItem>
                     <IonModal keepContentsMounted={true}>
-                        <IonDatetime onIonChange={(e) =>setBuying(e.detail.value!)} id='buying'  presentation='date'></IonDatetime>
+                        <IonDatetime value={defaultFechaHoy} onIonChange={(e) =>setBuying(e.detail.value!)} id='buying'  presentation='date'></IonDatetime>
                     </IonModal>
                     
                     <IonItem>
