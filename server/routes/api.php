@@ -13,11 +13,11 @@ Route::get('login',[UserController::class,'login']);
 
 Route::group(['middleware'=>['auth:sanctum']],function (){
     Route::post('inventory/create',[inventoryController::class,'createInventory']);    
-    Route::post('inventory/delete',[inventoryController::class,'deleteInventory']);    
+    Route::delete('inventory/delete',[inventoryController::class,'deleteInventory']);    
     Route::get('inventory',[inventoryController::class,'getInventory']);    
     
     Route::post('product/create',[productController::class,'createProduct']);    
-    Route::post('product/delete',[productController::class,'deleteProduct']);  
+    Route::delete('product/delete',[productController::class,'deleteProduct']);  
     Route::post('product/update',[productController::class,'updateProduct']);    
     Route::get('product/one',[productController::class,'getOneProduct']);    
     Route::get('product/all',[productController::class,'getAllProduct']);

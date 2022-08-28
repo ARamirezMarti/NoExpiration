@@ -61,7 +61,7 @@ class ProductControllerTest extends TestCase
         $payload = [
             'id' => $product->id,
         ];
-        $response = $this->post('product/delete', $payload);
+        $response = $this->delete('product/delete', $payload);
 
         $this->assertDatabaseMissing('product', [
             'id' => $product->id,

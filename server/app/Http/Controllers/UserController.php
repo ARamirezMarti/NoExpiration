@@ -43,9 +43,7 @@ class UserController extends Controller
                 'status' => 0,
                 'msg' => $e->getMessage(),
             ]);
-
         }
-
     }
 
     public function login(Request $request)

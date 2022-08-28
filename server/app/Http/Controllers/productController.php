@@ -62,8 +62,7 @@ class productController extends Controller
             $this->logger->error($e->getMessage());
             return response()->json([
                 'status' => 0,
-                'msg' => 'The product can not be created',
-                'error' => $e->getMessage(),
+                'msg' => $e->getMessage(),
             ]);
         }
 
