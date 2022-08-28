@@ -22,11 +22,8 @@ class inventoryControllerTest extends TestCase
         ]);
         $this->actingAs($user);
 
-        $params = [
-            'id' => $inventory->id,
-        ];
 
-        $response = $this->delete('inventory/delete', $params);
+        $response = $this->delete("inventory/delete?id={$inventory->id}");
 
         $response->assertJson(fn(AssertableJson $json) =>
             $json->hasAll(['status', 'msg'])
