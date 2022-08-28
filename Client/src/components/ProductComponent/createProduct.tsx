@@ -3,9 +3,11 @@ import { useState,useRef } from 'react';
 import axios from 'axios';
 import getToken, { getInventory } from '../../Helpers/functions';
 
+interface  CreateProductModal {
+  getProducts:Function
+}
 
-
-const CreateProductModal: React.FC = () => {
+const CreateProductModal: React.FC<CreateProductModal> = ({getProducts}) => {
 
 
   useIonViewWillEnter (()=>{
@@ -28,7 +30,7 @@ const CreateProductModal: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null);
   const [toast] = useIonToast();
 
-
+  
 
 
 
@@ -80,9 +82,9 @@ const CreateProductModal: React.FC = () => {
                 })
                 setTimeout(()=>{
                   modal.current?.dismiss()  
+                  getProducts()
                 },1000)
                
-                window.location.reload()
             }else{
                 toast({
                     cssClass:'my-css',

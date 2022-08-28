@@ -18,14 +18,16 @@ const Inventory: React.FC = () => {
     
 
     useIonViewWillEnter(async ()=>{
-        let data:any = await inventoryRequest.getProducts(getToken(),toast,getInventory())
-        setListProducts(data.products);
+        getItems()
     })
 
-
+    const getItems = async () =>{
+        let data:any = await inventoryRequest.getProducts(getToken(),toast,getInventory())
+        setListProducts(data.products);
+    }
 
     const deleteProduct = (id:any) =>{
-        inventoryRequest.deleteProd(getToken,toast,id);
+        inventoryRequest.deleteProd(getToken(),toast,id,getItems);
     }
 
 
@@ -84,7 +86,7 @@ const Inventory: React.FC = () => {
             }  
 
     </IonGrid>
-    <CreateProductModal />
+    <CreateProductModal getProducts={getItems} />
     </IonContent>
 
     

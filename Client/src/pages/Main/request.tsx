@@ -71,10 +71,10 @@ const InventaryRequest = {
 
         })
     },
-    deleteInventories(data:FormData,headers:Object,toast:any){
+    deleteInventories(id:string,headers:Object,toast:any){
         return new Promise((resolve,reject)=>{
 
-            axios.delete('http://localhost:3000/api/inventory/delete',data,headers)
+            axios.delete(`http://localhost:3000/api/inventory/delete?id=${id}`,headers)
             .then(function (response) {
                 console.log(response)
               if (response.data.status === 1){                

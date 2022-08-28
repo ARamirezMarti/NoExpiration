@@ -25,14 +25,15 @@ const inventoryRequest = {
         })
 
     },
-    deleteProd(token:Object,toast:any,id:number){
-        
+    deleteProd(token:Object,toast:any,id:number,getItems:Function){
+        console.log(token)
         return new Promise ((resolve,reject)=>{
 
             axios.delete(`http://localhost:3000/api/product/delete?id=${id}`,token)
                 .then((response) => {
+                    console.log(response)
                     if(response.data.status===1){
-                        resolve(response.data)
+                        getItems()
                     }
                 
                 }).catch((error)=>{

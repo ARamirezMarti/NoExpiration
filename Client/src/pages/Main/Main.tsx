@@ -26,9 +26,7 @@ const Main: React.FC = () => {
   }
   const deleteinventories = () =>{
     deleteInventorySelected.forEach((id:number) => {
-      let formdata = new FormData();
-      formdata.append('id',id.toString())
-      InventaryRequest.deleteInventories(formdata,getToken(),toast)
+      InventaryRequest.deleteInventories(id.toString(),getToken(),toast)
       updateList()
 
     });
