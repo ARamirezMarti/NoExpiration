@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');            
             $table->date('buying_date');
             $table->date('expiration_date');
-            $table->date('days_left')->nullable();
+            $table->integer('days_left')->nullable();
             $table->text('image')->nullable();
 
             $table->foreign('inventory_id')->references('id')->on('inventory')->onDelete('cascade');
