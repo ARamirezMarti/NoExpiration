@@ -1,4 +1,4 @@
-import {  IonCol, IonContent,useIonToast ,IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import {  IonCol, IonContent,useIonToast ,IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar, useIonViewWillEnter, IonBadge } from '@ionic/react';
 import { useParams } from 'react-router';
 import getToken, { getInventory } from '../../Helpers/functions';
 import { addSharp, arrowBack,trashBinOutline} from "ionicons/icons";
@@ -71,9 +71,14 @@ const Inventory: React.FC = () => {
             productList.map((item: any) => {
                 return (
                     <IonRow key={item.id} class='ion-text-center'>
-                        <IonCol> {item.name}</IonCol>
+
+                        <IonCol>{item.name}</IonCol>
                         <IonCol> {item.expiration_date}</IonCol>
-                        <IonCol> 3</IonCol>
+                        <IonCol> {item.days_left}
+                            { item.days_left < 5 &&
+                                <IonBadge  color='danger'>!</IonBadge>
+                            }
+                        </IonCol>
                         <IonCol> <IonIcon onClick={()=>{deleteProduct(item.id)} } icon={trashBinOutline}></IonIcon></IonCol>
                         
                     </IonRow>
