@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use App\Models\ProdType;
 use App\Models\Product;
 use App\Services\Alertcreator;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Psr\Log\LoggerInterface;
+use Illuminate\Support\Carbon;
 
 class productController extends Controller
 {
@@ -40,6 +40,16 @@ class productController extends Controller
                 'expiration_date.required' => 'Expiration date is required.',
 
             ]);
+            $startTime = Carbon::parse($request->buying_date);
+            $finishTime = Carbon::parse($request->expiration_date);
+            
+            if(!$finishTime->isAfter($startTime)){
+                return response()->json([
+                    'status' => 0,
+                    'msg' => 'The experation date should be after the buying date.',
+                ]);
+            }
+            
             $product = Product::create($validated);
 
             $AlertCreator->createAlerts($request->expiration_date, $product->id);
