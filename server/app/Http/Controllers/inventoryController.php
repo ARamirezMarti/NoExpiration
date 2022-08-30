@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use App\Models\Product;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class inventoryController extends Controller
 {
@@ -21,6 +24,7 @@ class inventoryController extends Controller
 
             $inventories = DB::table('inventory')->where('user_id', '=', $user->id)->get();
 
+           
             return response()->json([
                 'status' => 1,
                 'inventories' => $inventories,
@@ -89,5 +93,22 @@ class inventoryController extends Controller
                 'error_code' => $e->errorInfo[1],
             ]);
         }
+    }
+    public function getBasicInfoFromInventory(Request $request){
+        $arraydates = [];
+        $products = DB::table('product')->where('inventory_id',$request->inventoryId)->get();
+        
+        
+        foreach ($products as $product) {
+            $arraydates[$product->id] = $product->expiration_date;
+        }
+
+        $quantity = count($products);
+        return response()->json([
+            'status' => 1,
+            'cantidad' => $quantity,
+        ]);
+
+    
     }
 }

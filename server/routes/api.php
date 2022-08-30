@@ -15,6 +15,7 @@ Route::group(['middleware'=>['auth:sanctum']],function (){
     Route::post('inventory/create',[inventoryController::class,'createInventory']);    
     Route::delete('inventory/delete',[inventoryController::class,'deleteInventory']);    
     Route::get('inventory',[inventoryController::class,'getInventory']);    
+    Route::get('inventory/info',[inventoryController::class,'getBasicInfoFromInventory']);    
     
     Route::post('product/create',[productController::class,'createProduct']);    
     Route::delete('product/delete',[productController::class,'deleteProduct']);  
