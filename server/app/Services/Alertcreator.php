@@ -8,25 +8,20 @@ use Illuminate\Support\Carbon;
 
 class Alertcreator{
 
-    private $date;    
-    private $alert1Day;
-    private $alert2Day;
-    private $alert1Week;
-    
-
     public function createAlerts($date,$product_id){
         
-        $this->date =Carbon::createFromFormat('Y-m-d', $date);        
-        $this->create1DayAlert();
-        $this->create2DayAlert();
-        $this->createWeekAlert();
+         $alert1Day=Carbon::createFromFormat('Y-m-d', $date)->subDay();
+         $alert2Day=Carbon::createFromFormat('Y-m-d', $date)->subDays(2);
+         $alert1Week=Carbon::createFromFormat('Y-m-d', $date)->subWeek();
+        
+     
         
         try {
             Alerts::create([
                 'product_id' => $product_id,
-                'day_alert'  => $this->alert1Day,
-                '2day_alert' => $this->alert2Day,
-                'week_alert' => $this->alert1Week]);
+                'day_alert'  => $alert1Day,
+                '2day_alert' => $alert2Day,
+                'week_alert' => $alert1Week]);
                 
         } catch (Exception $e) {
             throw new Exception('No se ha podido insertar las alertas');
@@ -34,16 +29,5 @@ class Alertcreator{
         }
     }
 
-
-    public function create1DayAlert(){        
-        $this->alert1Day =$this->date->subDay();
-    }
-
-    public function create2DayAlert(){        
-        $this->alert2Day = $this->date->subDays(2);        
-    }
-    public function createWeekAlert(){
-        $this->alert1Week = $this->date->subWeek();        
-    }
 
 }
