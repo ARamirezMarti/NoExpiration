@@ -10,9 +10,9 @@ class Alertcreator{
 
     public function createAlerts($date,$product_id){
         
-         $alert1Day=Carbon::createFromFormat('Y-m-d', $date)->subDay();
-         $alert2Day=Carbon::createFromFormat('Y-m-d', $date)->subDays(2);
-         $alert1Week=Carbon::createFromFormat('Y-m-d', $date)->subWeek();
+         $alert1Day = Carbon::createFromFormat('Y-m-d', $date)->subDay();
+         $alert2Day = Carbon::createFromFormat('Y-m-d', $date)->subDays(2);
+         $alert1Week = Carbon::createFromFormat('Y-m-d', $date)->subWeek();
         
      
         
