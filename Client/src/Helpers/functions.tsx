@@ -18,3 +18,8 @@ export default  function getToken(){
     }
 }
 
+
+export   function deleteToken(){
+
+    localStorage.removeItem('token');
+}
