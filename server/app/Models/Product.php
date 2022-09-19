@@ -24,6 +24,7 @@ class Product extends Model
         'buying_date',
         'expiration_date',
         'image',
+        'days_left'
     ];
 
 }

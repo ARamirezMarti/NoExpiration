@@ -43,6 +43,8 @@ class productController extends Controller
             $startTime = Carbon::parse($request->buying_date);
             $finishTime = Carbon::parse($request->expiration_date);
             
+            $validated['days_left'] = $finishTime->diffInDays($startTime);
+            
             if(!$finishTime->isAfter($startTime)){
                 return response()->json([
                     'status' => 0,
@@ -65,7 +67,7 @@ class productController extends Controller
 
             return response()->json([   
                 'status' => 1,
-                'msg' => 'Product created', 
+                'msg' => 'Product created',
             ]);
 
         } catch (Exception $e) {
