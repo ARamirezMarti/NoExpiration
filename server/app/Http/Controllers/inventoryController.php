@@ -23,7 +23,10 @@ class inventoryController extends Controller
         try {
 
             $inventories = DB::table('inventory')->where('user_id', '=', $user->id)->get();
-
+            foreach ($inventories as $inventory) {
+                $product_quantity = DB::table('product')->where('inventory_id', '=', $inventory->id)->count();
+                $inventory->quantity = $product_quantity ;    
+            }
            
             return response()->json([
                 'status' => 1,
