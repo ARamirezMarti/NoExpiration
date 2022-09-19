@@ -1,5 +1,5 @@
 import {  IonCol, IonContent,useIonToast ,IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar, useIonViewWillEnter, IonBadge } from '@ionic/react';
-import { useParams } from 'react-router';
+import { useParams,useHistory} from 'react-router';
 import getToken, { getInventory } from '../../Helpers/functions';
 import { addSharp, arrowBack,trashBinOutline} from "ionicons/icons";
 import CreateProductModal from '../../components/ProductComponent/createProduct';
@@ -14,7 +14,8 @@ const Inventory: React.FC = () => {
 
     const [toast] = useIonToast();
 
-   
+    const history = useHistory();
+    
     
 
     useIonViewWillEnter(async ()=>{
@@ -30,6 +31,10 @@ const Inventory: React.FC = () => {
         inventoryRequest.deleteProd(getToken(),toast,id,getItems);
     }
 
+    const GoBack = ()=>{
+        history.goBack();
+    }
+
 
   return (
     <IonPage>
@@ -43,7 +48,7 @@ const Inventory: React.FC = () => {
       <IonGrid  >
         <IonRow >
             <IonCol>
-                <div  className="product_boxes" >
+                <div  onClick={GoBack} className="product_boxes" >
                     <IonIcon   icon={arrowBack}></IonIcon>
                 </div>
             </IonCol > 
