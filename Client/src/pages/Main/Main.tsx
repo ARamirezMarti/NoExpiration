@@ -3,7 +3,7 @@ import {  useState } from 'react';
 import { arrowBack } from "ionicons/icons";
 import InventaryRequest from './request';
 import CreateInventoryModal from '../../components/InventoryComponents/createInventory';
-import getToken, { setInventory } from '../../Helpers/functions';
+import getToken, { setInventory,deleteToken } from '../../Helpers/functions';
 import SettingsModal from '../../components/SettingsComponent/settings';
 
 
@@ -45,6 +45,11 @@ const Main: React.FC = () => {
  }
 
 
+ const handleLogout=() =>{
+  deleteToken();
+  window.location.href='/login'
+
+ }
 
   return (
     <IonPage>
@@ -55,7 +60,7 @@ const Main: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
     
-    <IonButton id='go_back_button' ><IonIcon icon={arrowBack}></IonIcon></IonButton>
+    <IonButton id='go_back_button' onClick={handleLogout} ><IonIcon icon={arrowBack}></IonIcon></IonButton>
        
     <IonGrid  >
         <IonRow >
@@ -101,8 +106,7 @@ const Main: React.FC = () => {
                     <IonLabel >
                       <h2>{item.name}</h2>
                       <h3>{item.description}</h3>
-                      <p style={{color:'red'}}>TODO:Products: <b>23</b> </p>
-                      <p style={{color:'red'}}>TODO: Closest expiration date: <b>2022-04-05</b></p>
+                      <p >Products: <b>{item.quantity}</b> </p>
                     </IonLabel>
                       <IonCheckbox  onIonChange={()=>{addToDeleteArray(item.id)}} slot="end" color="dark" />
                 </IonItem>
