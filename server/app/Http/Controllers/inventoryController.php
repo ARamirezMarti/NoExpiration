@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Inventory;
 use App\Models\Product;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 
 class inventoryController extends Controller
@@ -22,9 +20,9 @@ class inventoryController extends Controller
         $user = Auth()->user();
         try {
 
-            $inventories = DB::table('inventory')->where('user_id', '=', $user->id)->get();
+            $inventories = Inventory::getInventoriesByUserId($user->id); 
             foreach ($inventories as $inventory) {
-                $product_quantity = DB::table('product')->where('inventory_id', '=', $inventory->id)->count();
+                $product_quantity = Product::getCountProductsByInventoryID($inventory->id); 
                 $inventory->quantity = $product_quantity ;    
             }
            
@@ -71,10 +69,7 @@ class inventoryController extends Controller
         $user = auth()->user();
         try {
 
-            $deleted = DB::table('inventory')
-                ->where('id', '=', $request->id)
-                ->where('user_id', '=', $user->id)
-                ->delete();
+            $deleted = Inventory::deleteInventory($user->id,$request->id); 
 
             if ($deleted) {
                 return response()->json([
@@ -97,21 +92,5 @@ class inventoryController extends Controller
             ]);
         }
     }
-    public function getBasicInfoFromInventory(Request $request){
-        $arraydates = [];
-        $products = DB::table('product')->where('inventory_id',$request->inventoryId)->get();
-        
-        
-        foreach ($products as $product) {
-            $arraydates[$product->id] = $product->expiration_date;
-        }
-
-        $quantity = count($products);
-        return response()->json([
-            'status' => 1,
-            'cantidad' => $quantity,
-        ]);
-
     
-    }
 }
