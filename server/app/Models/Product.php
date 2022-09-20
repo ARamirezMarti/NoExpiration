@@ -27,4 +27,13 @@ class Product extends Model
         'days_left'
     ];
 
+    public static function getProductsByInventoryID($id){
+        return self::query()->where('inventory_id', '=', $id)->get();
+
+    }
+    public static function getCountProductsByInventoryID($id){
+        return self::query()->where('inventory_id', '=', $id)->count();
+
+    }
+
 }

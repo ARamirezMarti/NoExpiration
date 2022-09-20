@@ -7,7 +7,6 @@ use App\Models\Product;
 use App\Services\Alertcreator;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Psr\Log\LoggerInterface;
 use Illuminate\Support\Carbon;
 
@@ -152,8 +151,7 @@ class productController extends Controller
     {
         try {
 
-            $products = DB::table('product')->where('inventory_id', '=', $request->inventory_id)
-                ->get();
+            $products = Product::getProductsByInventoryID($request->inventory_id);
 
             return response()->json([
                 'status' => 1,
