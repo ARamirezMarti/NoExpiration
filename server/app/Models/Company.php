@@ -20,4 +20,10 @@ class Company extends Model
         'location',
         
     ];
+
+    public static function getCompaniesByUser($user_id){
+
+        return self::query()->where('user_id','=',$user_id)
+        ->get();
+    }
 }

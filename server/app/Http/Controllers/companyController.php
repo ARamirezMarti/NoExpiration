@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 
 class companyController extends Controller
 {
     public function getAllCompanyByUser(Request $request){
        try {
-        $companies = DB::table('company')->where('user_id','=',$request->user)
-        ->get();
+        $companies = Company::getCompaniesByUser($request->user);
         return response()->json([
             'status' => 1,
             'companies' => $companies,
