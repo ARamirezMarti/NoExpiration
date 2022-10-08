@@ -9,7 +9,7 @@ use App\Http\Controllers\prodtypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register',[UserController::class,'register']);
-Route::get('login',[UserController::class,'login']);
+Route::post('login',[UserController::class,'login']);
 
 Route::group(['middleware'=>['auth:sanctum']],function (){
     Route::post('inventory/create',[inventoryController::class,'createInventory']);    
