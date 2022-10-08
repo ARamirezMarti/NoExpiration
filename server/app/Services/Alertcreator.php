@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 
 class Alertcreator{
 
-    public function createAlerts($date,$product_id){
+    public function __invoke($date,$product_id){
         
          $alert1Day = Carbon::createFromFormat('Y-m-d', $date)->subDay();
          $alert2Day = Carbon::createFromFormat('Y-m-d', $date)->subDays(2);

@@ -9,6 +9,7 @@ services:
         container_name: noexpapi
         ports:
             - "3700:8000"
+        command: php artisan queue:work
 networks: 
   default: 
     external: 

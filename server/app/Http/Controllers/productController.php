@@ -53,7 +53,7 @@ class productController extends Controller
             
             $product = Product::create($validated);
 
-            $AlertCreator->createAlerts($request->expiration_date, $product->id);
+            $AlertCreator($request->expiration_date, $product->id);
 
             if ($request->company_name) {
                 Company::create([

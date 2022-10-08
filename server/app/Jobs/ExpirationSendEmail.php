@@ -2,15 +2,15 @@
 
 namespace App\Jobs;
 
+use App\Mail\ExpirationEmailQueue;
+use App\Models\Alerts;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Alerts;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
-use App\Mail\ExpirationEmailQueue;
+use Illuminate\Support\Facades\Mail;
 
 class ExpirationSendEmail implements ShouldQueue
 {

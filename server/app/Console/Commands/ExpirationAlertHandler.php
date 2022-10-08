@@ -2,12 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ExpirationSendEmail;
 use App\Mail\ExpirationEmailQueue;
 use App\Models\Alerts;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
-use App\Jobs\ExpirationSendEmail;
 
 class ExpirationAlertHandler extends Command
 {
@@ -33,7 +32,6 @@ class ExpirationAlertHandler extends Command
      */
     public function handle()
     {
-
 
         
       
