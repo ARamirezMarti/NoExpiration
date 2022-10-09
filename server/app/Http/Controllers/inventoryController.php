@@ -59,7 +59,7 @@ class inventoryController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'status' => 0,
-                'msg' => 'Inventory can not be retrieved',
+                'msg' => 'Inventory can not be created',
                 'error_code' => $e->getMessage(),
             ]);
         }
