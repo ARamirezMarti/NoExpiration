@@ -36,7 +36,7 @@ class ExpirationEmailQueue extends Mailable
      */
     public function build()
     {
-        return $this->subject('mensajeeee')
+        return $this->subject('A product is reaching its expiration date')
                 ->view('emails.expiration')
                 ->with([
                     'product'=>$this->productName,
