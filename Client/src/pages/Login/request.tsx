@@ -5,7 +5,11 @@ const LoginRequest = {
     
      login(email:string,password:string,toast:any){
 
-        axios.get(`http://localhost:3000/api/login?email=${email}&password=${password}`)
+        let formdata = new FormData();
+        formdata.append("email",email);
+        formdata.append("password",password);
+
+        axios.post(`http://localhost:3000/api/login`,formdata)
             .then((response) => {
                 if(response.data.status === 1){
                     localStorage.setItem('token',response.data.token);
