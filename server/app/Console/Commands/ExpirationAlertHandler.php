@@ -3,11 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ExpirationSendEmail;
-use App\Mail\ExpirationEmailQueue;
-use App\Models\Alerts;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Log;
 class ExpirationAlertHandler extends Command
 {
     /**
@@ -34,7 +31,8 @@ class ExpirationAlertHandler extends Command
     {
 
         
-      
+        Log::info("Cron : {$this->signature} has been launched. ");
+
         ExpirationSendEmail::dispatch();
 
     }
