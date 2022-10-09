@@ -40,14 +40,15 @@ class ExpirationSendEmail implements ShouldQueue
             $alerts = Alerts::getProductsExpirationAlerts($time);
 
             $cantidad = count($alerts);
-            Log::emergency("Email Job for {$time}: Found {$cantidad}");
-            foreach ($alerts as $item) {
+            Log::info("Email Job for {$time}: Found {$cantidad}");
+
+            foreach ($alerts->toArray() as $item) {
                 try {
                     Mail::to('antonio.ramirez.marti@gmail.com')->send(new ExpirationEmailQueue(
-                        $item->productName,
-                        $item->username,
-                        $item->expiration_date,
-                        $item->inventoryName)); 
+                        $item["productName"],
+                        $item["username"],
+                        $item["expiration_date"],
+                        $item["inventoryName"])); 
                 } catch (\Throwable $th) {
                     Log::error("Fallo en el envio de email {$th->getMessage()}");
                 }
