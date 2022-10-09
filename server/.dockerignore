@@ -1,7 +1,8 @@
 ./vendor
 ./git
 .gitignore
-./test
+./tests
 phpunit.xml
 README.md
 .env.example
+docker-compose.yml

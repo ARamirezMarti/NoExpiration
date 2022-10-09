@@ -5,8 +5,8 @@ services:
         build:
             context: .
             dockerfile: ./Dockerfile
-        image: 'pruebaaravel'
-        container_name: noexpapi
+        image: 'laravel_noexpapi'
+        container_name: NoExpApi
         ports:
             - "3700:8000"
         command: php artisan queue:work

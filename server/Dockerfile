@@ -19,9 +19,12 @@ RUN apt update && apt install -y \
     && docker-php-source delete
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get install -y cron
+RUN apt-get install -y nano
 
 WORKDIR /app
 COPY . /app
+
 
 RUN composer install
 
