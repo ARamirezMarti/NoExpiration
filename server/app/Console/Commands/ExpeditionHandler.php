@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Psr\Log\LoggerInterface;
 
 class ExpeditionHandler extends Command
 {
@@ -27,18 +29,25 @@ class ExpeditionHandler extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(LoggerInterface $loggerInterface)
     {
+        Log::info("Cron : {$this->signature} has been launched. ");
+
         $products = DB::table('product')->get();
+        
         foreach ($products as $prod) {
             $startTime = Carbon::parse($prod->buying_date);
-            $finishTime = Carbon::parse($prod->expiration_date);
-            
+            $finishTime = Carbon::parse($prod->expiration_date);            
             $days_left = $finishTime->diffInDays($startTime);
 
-            DB::table('product')->where('id',$prod->id)->update(['days_left'=>$days_left]);
-
+            try {
+                DB::table('product')->where('id',$prod->id)->update(['days_left'=>$days_left]);                
+            } catch (\Throwable $th) {                
+                Log::Error("Cron Error : {$this->signature}. {$th->getMessage()} ");
+            }
         }
+
+        Log::info("Cron : {$this->signature} has been finished. ");
         
     }
 }
